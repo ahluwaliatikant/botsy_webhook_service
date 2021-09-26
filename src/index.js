@@ -21,13 +21,17 @@ function addToIntentMap(intentName, intentHandler) {
 
 async function handleNameIntent(agent) {
     console.log('inside handle request');
+
     data = {
         'intentName': agent.intent,
         'parameters': agent.parameters,
         'session': agent.session
     }
+    
+    console.log(JSON.stringify(data));
+
     try {
-        resp = await axios.post(BACKEND_HOST_URL + 'api/webhook');
+        resp = await axios.post(BACKEND_HOST_URL + 'api/webhook', data);
         console.log(`Resp from BACKEND = ${JSON.stringify(resp.data)}`);    
     } catch (error) {
         console.log(`failure from backend`);
