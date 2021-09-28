@@ -22,6 +22,22 @@ function addToIntentMap(intentName, intentHandler) {
 async function handleIntent(agent) {
     console.log('inside handle request');
 
+    tempParams = agent.parameters;
+
+    if (tempParams != undefined) {
+        if ("aadhar-card" in tempParams)
+        {
+            aadhar_card = String(tempParams["aadhar-card"]);
+            console.log(`We found aadhar-card: ${aadhar_card}`);
+            if (aadhar_card.length != 12) {
+                console.log("Not Proper Length")
+            }
+            else if (!(/^\d+$/.test(aadhar_card))) {
+                console.log("No characters allowed");
+            }
+        }
+    }
+
     data = {
         'intentName': agent.intent,
         'parameters': agent.parameters,
