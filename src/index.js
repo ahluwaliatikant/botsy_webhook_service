@@ -19,7 +19,7 @@ function addToIntentMap(intentName, intentHandler) {
     intentMap.set(intentName, intentHandler);
 }
 
-async function handleNameIntent(agent) {
+async function handleIntent(agent) {
     console.log('inside handle request');
 
     data = {
@@ -39,7 +39,7 @@ async function handleNameIntent(agent) {
     agent.add(agent.consoleMessages);
 }
 
-addToIntentMap("Schedule Appointment", handleNameIntent);
+addToIntentMap("Schedule Appointment", handleIntent);
 
 app.post('/dialogflow-fulfillment', (request, response) => {
     dialogflowFulfillment(request, response);
@@ -53,6 +53,8 @@ app.get('/test-page', (req, res) => {
 const dialogflowFulfillment = (request, response) => {
     const agent = new WebhookClient({request, response})
     console.log('webhook client created');
+    const intentNameFromAgent = agent.intent;
+    addToIntentMap(intentNameFromAgent , handleIntent);
     agent.handleRequest(intentMap)
 }
 
