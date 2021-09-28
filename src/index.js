@@ -21,7 +21,7 @@ function addToIntentMap(intentName, intentHandler) {
 
 async function handleIntent(agent) {
     console.log('inside handle request');
-    console.log(`CONSOLE MSGS: ${JSON.stringify(agent.consoleMessages)}`);
+    // console.log(`CONSOLE MSGS: ${JSON.stringify(agent.consoleMessages)}`);
     tempParams = agent.parameters;
 
     if (tempParams != undefined) {
@@ -31,9 +31,17 @@ async function handleIntent(agent) {
             console.log(`We found aadhar-card: ${aadhar_card}`);
             if (aadhar_card.length != 12) {
                 console.log("Not Proper Length")
+                agent.add([{
+                    "text": "Please Enter Valid 12 digit Aadhar Number."
+                }])
+                return;
             }
             else if (!(/^\d+$/.test(aadhar_card))) {
                 console.log("No characters allowed");
+                agent.add([{
+                    "text": "Aadhar Number cannot contain any characters."
+                }])
+                return;
             }
         }
     }
