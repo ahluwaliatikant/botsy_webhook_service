@@ -21,7 +21,7 @@ function addToIntentMap(intentName, intentHandler) {
 
 async function handleIntent(agent) {
     console.log('inside handle request');
-
+    console.log(`CONSOLE MSGS: ${agent.consoleMessages}`);
     tempParams = agent.parameters;
 
     if (tempParams != undefined) {
