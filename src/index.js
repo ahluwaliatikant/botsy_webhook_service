@@ -31,16 +31,14 @@ async function handleIntent(agent) {
             console.log(`We found aadhar-card: ${aadhar_card}`);
             if (aadhar_card.length != 12) {
                 console.log("Not Proper Length")
-                agent.add([{
-                    "text": "Please Enter Valid 12 digit Aadhar Number."
-                }])
+                agent.consoleMessages[0]["text"] = "Please Enter Valid 12 digit Aadhar Number."
+                agent.add(agent.consoleMessages)
                 return;
             }
             else if (!(/^\d+$/.test(aadhar_card))) {
                 console.log("No characters allowed");
-                agent.add([{
-                    "text": "Aadhar Number cannot contain any characters."
-                }])
+                agent.consoleMessages[0]["text"] = "Aadhar Number cannot contain any characters."
+                agent.add(agent.consoleMessages)
                 return;
             }
         }
